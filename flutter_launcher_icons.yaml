@@ -1,0 +1,5 @@
+﻿flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/images/logo_CHWARA2.png"
+  min_sdk_android: 21

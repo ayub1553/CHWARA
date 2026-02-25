@@ -125,21 +125,22 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     });
   }
 
-  void _triggerAiMove() {
+ void _triggerAiMove() {
     if (gameEnded) return;
 
-    final ai = DotsAI(widget.gridSize);
+    // Fix: Added 'this' as the second argument
+    final ai = DotsAI(widget.gridSize, this); 
     final move = ai.getBestMove(lines, boxes);
 
     if (move != null) {
-      int thinkingTime = 600 + Random().nextInt(600);
+      // Mean AI "thinks" faster when it's about to crush you
+      int thinkingTime = 400 + Random().nextInt(400);
 
       Future.delayed(Duration(milliseconds: thinkingTime), () {
         if (mounted) _addLine(move.r1, move.c1, move.r2, move.c2);
       });
     }
   }
-
   Future<void> _checkWinner() async {
     if (boxes.every((b) => b.owner != null) && !gameEnded) {
       gameEnded = true;
